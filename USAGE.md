@@ -3,9 +3,3 @@
 ```bash
 npm start
 ```
-
-# Testing
-- Run the following command,
-```bash
-npm test
-```

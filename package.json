@@ -1,5 +1,5 @@
 {
-  "name": "{{param `github.repo` | lowercase}}",
+  "name": "scrape_books",
   "version": "1.0.0",
   "description": "{{param `description`}}",
   "main": "dist/index.js",
@@ -21,6 +21,7 @@
     "type": "git",
     "url": "git+https://github.com/{{param `github.owner`}}/{{param `github.repo`}}.git"
   },
+  "bin": "dist/index.js",
   "author": "{{param `git.name`}}<{{param `git.email`}}>",
   "license": "MIT",
   "bugs": {
@@ -44,12 +45,15 @@
     "@types/json2csv": "^5.0.7",
     "axios": "^1.7.7",
     "cheerio": "^1.0.0",
-    "export-to-csv": "^1.4.0",
-    "json-2-csv": "^5.5.6",
-    "json-csv": "^4.0.18",
     "json2csv": "6.0.0-alpha.2",
-    "puppeteer": "^23.6.0",
-    "puppeteer-extra": "^3.3.6",
-    "puppeteer-extra-plugin-stealth": "^2.11.2"
+    "pkg": "^5.8.1"
+  },
+  "pkg": {
+    "scripts": "./dist/**/*.js",
+    "assets": [
+      "node_modules/axios/**/*",
+      "node_modules/follow-redirects/**/*"
+    ],
+    "outputPath": "dist2"
   }
 }

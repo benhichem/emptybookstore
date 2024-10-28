@@ -1,7 +1,3 @@
-import puppeteer from "puppeteer-extra";
-import StealthPlugin from "puppeteer-extra-plugin-stealth"
-puppeteer.use(StealthPlugin())
-
 import * as cheerio from "cheerio";
 import axios from "axios";
 
@@ -25,46 +21,6 @@ export async function ScrapeCategories(): Promise<Array<string>> {
         throw error
     }
 };
-
-
-/* (async () => {
-    try {
-        const url = "https://www.korisnaknjiga.com/popularna-psihologija-oblast-38"
-        const response = await axios.get(url)
-        const $ = cheerio.load(response.data)
-
-        const pagesLinks: Array<string> = [];
-        $("#broj-stranice a").each((index, element) => {
-            const $eleemnt = $(element)
-            //pagesLinks.push($eleemnt.attr('href')!)
-            const link = $eleemnt.attr('href')
-            if (link !== undefined) pagesLinks.push(link)
-        })
-
-        const booksLinks: Array<string> = []
-        const books = $('#izabrana-oblast a').each((index, ele) => {
-            const $element = $(ele)
-            const link = $element.attr('href')
-            if (link !== undefined) booksLinks.push(link)
-        })
-        for (var i = 0; i < pagesLinks.length; i++) {
-            const response = await axios.get(`https://www.korisnaknjiga.com${pagesLinks[i].trim()}`)
-            const $ = cheerio.load(response.data)
-            const books = $('#izabrana-oblast a').each((index, ele) => {
-                const $element = $(ele)
-                const link = $element.attr('href')
-                if (link !== undefined) booksLinks.push(link)
-            })
-        }
-
-        console.log(pagesLinks)
-        console.log(booksLinks)
-        console.log(booksLinks.length)
-
-    } catch (error) {
-        console.log(error)
-    }
-})() */
 
 
 
