@@ -1,11 +1,13 @@
 # {{param `github.repo` | replace `-` ` ` | titlecase}}
+
 {{param `description` `` `Project description: `}}
 
 Tags: {{param `tags` `` `Project tags: `}}
 
-*Note: This project has been generated using the following [templating system](./TEMPLATE.md)*
+_Note: This project has been generated using the following [templating system](./TEMPLATE.md)_
 
 ## Table of Contents
+
 - [{{param `github.repo` | replace `-` ` ` | titlecase}}](#param-githubrepo--replace------titlecase)
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
@@ -15,11 +17,12 @@ Tags: {{param `tags` `` `Project tags: `}}
   - [Author](#author)
 
 ## Installation
+
 To set up and run the application, follow these steps:
 
 1. **Clone the Repository**
 
-   Begin by Extracting the Zip into a folder. 
+   Begin by Extracting the Zip into a folder.
 
 2. **Install Dependencies**
 
@@ -39,9 +42,10 @@ npm install
 
 This will install all the required Node.js packages for the application to function properly.
 
-
 ## Usage
-in the same terminal inside the directory you can run 
+
+in the same terminal inside the directory you can run
+
 ```bash
-npm start 
-``` 
+npm start
+```
