@@ -38,7 +38,9 @@ async function ScrapePages(url: string): Promise<Array<string>> {
             const link = $eleemnt.attr('href')
             if (link !== undefined) pagesLinks.push(link)
         })
+        if (pagesLinks.length === 0) return [`/${url}`]
         pagesLinks.push(pagesLinks[0].replace('=2', '=1'))
+        console.log(pagesLinks)
         return pagesLinks
     } catch (error) {
         throw error
@@ -108,14 +110,15 @@ async function scrapeBookLinks(pages: Array<string>): Promise<Array<string>> {
 }
 
 
-import { ReadCategories, WriteCategoreis } from "./component";
+/* import { ReadCategories, WriteCategoreis } from "./component";
 import { appendJsonToCsv } from "./component/json_2_csv";
 
 (async () => {
-    /*  WriteCategoreis(await ScrapeCategories()) */
+
     let categories = await ReadCategories();
     for (let index = 0; index < categories.length; index++) {
         const element = categories[index];
+        console.log(`Category to scrape is :: ${element}`)
         try {
             let pages = await ScrapePages(element);
             let bookLinks = await scrapeBookLinks(pages)
@@ -131,4 +134,52 @@ import { appendJsonToCsv } from "./component/json_2_csv";
         }
     }
 
-})()
+})() */
+
+
+// Define the URL for the plant page
+const url = 'http://www.rightplants4me.co.uk/plant/1';
+
+async function scrapePlantData() {
+    try {
+        // Fetch the HTML of the page
+        const { data } = await axios.get(url);
+
+        // Load HTML into cheerio for parsing
+        const $ = cheerio.load(data);
+        console.log(data)
+        // Define an object to hold the scraped data
+        let plantData = {};
+
+
+        // Select the plant's common name and scientific name
+        //@ts-ignore
+        plantData.commonName = $('h2').text().trim();
+        //@ts-ignore
+        plantData.scientificName = $('.plant-scientific-name').text().trim();
+
+        // Scrape height from the specific div with class 'col-4 col-sm-5'
+        const heightText = $('div.col-4.col-sm-5').has('h4.title:contains("Height")').next('p').text().trim();
+
+        //@ts-ignore
+        plantData.height = heightText || "Not found";
+
+        // Scrape the rest of the details from the table
+        //@ts-ignore
+        plantData.details = {};
+        $('.plant-details-table tr').each((index, element) => {
+            const key = $(element).find('th').text().trim();
+            const value = $(element).find('td').text().trim();
+            if (key && value) {
+                //@ts-ignore
+                plantData.details[key] = value;
+            }
+        });
+
+        console.log(plantData);
+    } catch (error) {
+        console.error('Error fetching plant data:', error);
+    }
+}
+
+scrapePlantData();
